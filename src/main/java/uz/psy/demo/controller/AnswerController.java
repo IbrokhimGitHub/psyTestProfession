@@ -21,9 +21,9 @@ public class AnswerController {
         ApiResponse apiResponse = answerService.clickedFinishButton();
         return ResponseEntity.status(apiResponse.isSuccess()?200:401).body(apiResponse);
     }
-//    @GetMapping("finish1")
-//    public HttpEntity<?> finish1(){
-//        ApiResponse apiResponse = answerService.newMethod();
-//        return ResponseEntity.status(apiResponse.isSuccess()?200:401).body(apiResponse);
-//    }
+    @GetMapping("finish1")
+    public HttpEntity<?> finish1(){
+        ApiResponse apiResponse = answerService.newMethod();
+        return ResponseEntity.status(apiResponse.isSuccess()?200:401).body(apiResponse);
+    }
 }
