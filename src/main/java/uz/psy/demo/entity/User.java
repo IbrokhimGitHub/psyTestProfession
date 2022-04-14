@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -46,7 +47,9 @@ public class User implements UserDetails {
 
     @UpdateTimestamp
     private Timestamp updateAt;
+
     @ManyToMany(fetch = FetchType.EAGER)
+    @NotNull
     private Set<Role> roles;
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true; //bu user blocklanmagan

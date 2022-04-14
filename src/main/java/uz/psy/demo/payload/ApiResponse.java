@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class ApiResponse {
     private String message;
     private boolean success;
     private String token;
-    private List<?> list;
+//    private List<?> list;
 
     public ApiResponse(String message, boolean success) {
         this.message = message;
@@ -29,6 +29,6 @@ public class ApiResponse {
     public ApiResponse(String message, boolean success, List<?> list) {
         this.message = message;
         this.success = success;
-        this.list = list;
+//        this.list = list;
     }
 }

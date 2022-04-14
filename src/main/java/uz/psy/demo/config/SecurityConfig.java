@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/psy/question/generate",
                         "/psy/user/register",
-                        "/psy/user/login"
+                        "/psy/user/login",
+                        "/"
                 ).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

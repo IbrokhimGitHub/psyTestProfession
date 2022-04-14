@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uz.psy.demo.entity.Role;
 import uz.psy.demo.entity.User;
 import uz.psy.demo.entity.enums.RoleName;
 import uz.psy.demo.payload.ApiResponse;
@@ -20,10 +21,7 @@ import uz.psy.demo.repository.UserRepository;
 import uz.psy.demo.security.JwtProvider;
 
 
-import java.util.Collections;
-
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class AuthService implements UserDetailsService {
@@ -73,26 +71,34 @@ public class AuthService implements UserDetailsService {
     public ApiResponse registerUser(RegisterDto registerDto) {
 
         boolean existsByPhoneNumber = userRepository.existsByPhoneNumber(registerDto.getPhoneNumber());
-        if (existsByPhoneNumber){
-            return new ApiResponse("Such phoneNumber exist",false);
-        }
+//        if (existsByPhoneNumber){
+//            return new ApiResponse("Such phoneNumber exist",false);
+//        }
 
 
         User user=new User();
         user.setFirstName(registerDto.getFirstName());
         user.setLastName(registerDto.getLastName());
         user.setPhoneNumber(registerDto.getPhoneNumber());
-//        user.setSalaryAmount(registerDto.getSalaryAmount());
+        user.setAge(registerDto.getAge());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         String role=registerDto.getRole();
+        System.out.println(role);
+        Set<Role> roleSet=new HashSet<>();
+
 
         if (role.equals("ADMIN")){
-            user.setRoles(Collections.singleton(roleRepository.findByRoleName(RoleName.ADMIN)));
+            roleSet.add(roleRepository.findByRoleName(RoleName.ADMIN));
+            user.setRoles(roleSet);
         }else {
-            user.setRoles(Collections.singleton(roleRepository.findByRoleName(RoleName.TESTER)));
+            roleSet.add(roleRepository.findByRoleName(RoleName.TESTER));
+            user.setRoles(roleSet);
+
         }
-            userRepository.save(user);
-            return new ApiResponse("Success, new user saved",true);
+        User save = userRepository.save(user);
+        System.out.println(save.getRoles());
+
+        return new ApiResponse("Success, new user saved",true);
 
     }
 
