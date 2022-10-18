@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:n="http://www.thymeleaf.org"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>This is from thymeleaf CONTACTS</title>
+</head>
+<body>
+<h1>My contact list from thymeleaf</h1>
+<br>
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Country</th>
+    </tr>
+
+        <tr th:each="contact : ${contacts}">
+            <td th:text="${contact.name}">Name</td>
+            <td th:text="${contact.email}">Email</td>
+            <td th:text="${contact.country}">Country</td>
+
+        </tr>
+
+    </tr></table>
+
+</body>
+</html>

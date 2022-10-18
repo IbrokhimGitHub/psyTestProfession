@@ -1,3 +1,32 @@
+
+$(document).ready(function () {
+    // $("br")[1].after("<p>toptim</p>");
+    console.log($("br")[1]);
+    console.log($(".break1"));
+    $("#loginBtn").click(function () {
+        let logValue=$("#login").val();
+        let passValue=$("#password2").val();
+        if (logValue===""){
+            $(".log").text("Login qatorini to'ldiring!").addClass("text-danger text-uppercase ");
+            $(".break1").remove();
+        }else {
+            // console.log($(".log").next()[0]==$("#passLabel"));
+            $(".log").text("").after("<br>");
+
+        }
+        if (passValue===""){
+            $(".pass").text("Parol qatorini to'ldiring!").addClass("text-danger text-uppercase");
+            $(".break2").remove();
+        }else {
+            $(".pass").text("");
+
+        }
+    })
+
+    
+
+
+})
 function sendJSON() {
     // с помощью jQuery обращаемся к элементам на странице по их именам
     let firstName = document.querySelector('#name');

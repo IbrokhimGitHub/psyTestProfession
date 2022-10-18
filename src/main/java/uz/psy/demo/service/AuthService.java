@@ -21,6 +21,7 @@ import uz.psy.demo.repository.UserRepository;
 import uz.psy.demo.security.JwtProvider;
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 @Service
@@ -59,7 +60,7 @@ public class AuthService implements UserDetailsService {
                     loginDto.getPassword()
             ));
             User principal = (User) authenticate.getPrincipal();
-//            Employee principal = mostUsed.getCurrentEmployee();
+
 
             String token = jwtProvider.generateToken(loginDto.getPhoneNumber(), principal.getRoles());
             return new ApiResponse("Token", true, token);

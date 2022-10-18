@@ -12,5 +12,11 @@ public interface UserAnswersRepository extends JpaRepository<UserAnswers, Intege
 
     Optional<UserAnswers> findByUser(User user);
 
-    List<UserAnswers> findByUserOrderByScoreDesc(User user);
+    List<UserAnswers> findAByUserOrderByScoreDesc(User user);
+
+    List<UserAnswers> findFirst10ByUserOrderByScoreDesc(User user);
+
+
+
+
 }

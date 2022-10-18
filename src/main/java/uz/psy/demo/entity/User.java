@@ -35,6 +35,7 @@ public class User implements UserDetails {
 
     private Integer age;
 
+    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     private String password;
@@ -51,10 +52,20 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @NotNull
     private Set<Role> roles;
+
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true; //bu user blocklanmagan
     private boolean credentialsNonExpired = true; //bu user sroki o'tmagan
     private boolean enabled=true; //bu user yoniqmi
+    public <T> User(String firstName, String lastName, String phoneNumber, String password, Set<Role> role) {
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.phoneNumber=phoneNumber;
+        this.setPassword(password);
+        this.roles=role;
+
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -11,7 +11,7 @@
 <head>
     <title>Contact list JSP Spring</title>
 
-    <%--    <script type="text/javascript" src="script.js"></script>--%>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <%--    <script type="text/javascript" src="${pageContext.request.contextPath}"></script>--%>
 </head>
@@ -32,50 +32,45 @@
 <p class="result" style="color:blue"></p>
 </p>
 
-<script>
-    // эта функция сработает при нажатии на кнопку
-    function sendJSON() {
-        // с помощью jQuery обращаемся к элементам на странице по их именам
-        let firstName = document.querySelector('#name');
-        let lastName = document.querySelector('#lastname');
-        let age = document.querySelector('#age');
-        let password = document.querySelector('#password');
-        let phoneNumber = document.querySelector('#phoneNumber');
-        let role = document.querySelector('#role');
-        // console.log(role.value)
-        // а вот сюда мы поместим ответ от сервера
-        let result = document.querySelector('.result');
-        // создаём новый экземпляр запроса XHR
-        let xhr = new XMLHttpRequest();
-        // адрес, куда мы отправим нашу JSON-строку
-        let url = "";
-        // открываем соединение
-        xhr.open("POST", url, true);
-        // устанавливаем заголовок — выбираем тип контента, который отправится на сервер, в нашем случае мы явно пишем, что это JSON
-        xhr.setRequestHeader("Content-Type", "application/json");
-        // когда придёт ответ на наше обращение к серверу, мы его обработаем здесь
-        xhr.onreadystatechange = function () {
-            // если запрос принят и сервер ответил, что всё в порядке
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // выводим то, что ответил нам сервер — так мы убедимся, что данные он получил правильно
-                result.innerHTML = this.responseText
-            }
-        };
-        // преобразуем наши данные JSON в строку
-        var data = JSON.stringify({
-            "firstName": firstName.value,
-            "lastName": lastName.value,
-            "age": age.value,
-            "phoneNumber": phoneNumber.value,
-            "password": password.value,
-            "role": role.value
-        });
-        // когда всё готово, отправляем JSON на сервер
-        xhr.send(data);
-    }
+<div class="container">
+    <div class="row py-5">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <label id="loginLabel" for="login">Loginni kiriting</label>
+                    <br>
+                    <input class="form-control" id="login" type="text">
+                    <br class="break1">
+                    <p class="log"></p>
+
+                    <label id="passLabel" for="password">Parolni kiriting</label>
+                    <br>
+                    <input class="form-control" type="password" id="password2">
+                    <br class="break2">
+                    <p class="pass"></p>
+
+                    <div class="text-right">
+                        <button id="loginBtn" class="btn btn-success">Tizimga kirish</button>
+                    </div>
+                </div>
+            </div>
 
 
-</script>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<%--<script type="text/javascript" src="${jakarta.servlet.jsp.PageContext}/js/index.js"></script>--%>
+
+<jsp:include page="script.js"/>
+<jsp:include page="bootstrap.css"/>
+<%--</jsp:include>--%>
+
+
+<%--</script>--%>
 
 
 </body>

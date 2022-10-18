@@ -50,16 +50,19 @@ public class QuestionService {
         if (questionCounter != 0) {
             Optional<Question> optionalCurrentQuestion = questionRepository.findByQuestionNumber(questionCounter);
             Question currentQuestion = optionalCurrentQuestion.get();
-            Optional<Answer> byQuestion = answerRepository.findByQuestion(currentQuestion);
+            Optional<Answer> answerByQuestion = answerRepository.findByQuestionAndUser(currentQuestion,currentUser);
             Answer answer = null;
-            if (!byQuestion.isPresent()) {
+
+            if (answerByQuestion.isPresent()) {
+                answer= answerByQuestion.get();
+
+            } else {
                 answer = new Answer();
                 answer.setQuestion(currentQuestion);
                 answer.setUser(currentUser);
-            } else {
-                answer= byQuestion.get();
-                if (questionAnswer.equals("YES"))
-                    answer.setAnswer(1);
+            }
+            if (questionAnswer.equals("Yes")){
+                answer.setAnswer(1);
             }
             answerRepository.save(answer);
 
@@ -91,6 +94,7 @@ public class QuestionService {
 
             XWPFWordExtractor xwpfWordExtractor = new XWPFWordExtractor(doc);
             String docText = xwpfWordExtractor.getText();
+
             String[] split = docText.split("\n");
             for (String s : split) {
                 Question question = new Question();

@@ -33,20 +33,12 @@ public class AnswerService {
     @Autowired
     UserAnswersRepository userAnswersRepository;
 
-    public static void main(String[] args) {
-        Map<String, Integer> map = new LinkedHashMap<>();
-        map.put("SSS", 10);
-        map.put("WWW", 20);
-        map.put("EEE", 30);
-        map.put("XXX", 40);
-        System.out.println(map.remove("SSS"));
-    }
 
     public ApiResponse newMethod() {
 
-        List<UserAnswers> byUserOrderByScoreDesc = userAnswersRepository.findByUserOrderByScoreDesc(mostUsed.getCurrentUser());
+        List<UserAnswers> byUserOrderByScoreDesc = userAnswersRepository.findFirst10ByUserOrderByScoreDesc(mostUsed.getCurrentUser());
         for (UserAnswers userAnswers : byUserOrderByScoreDesc) {
-            System.out.println(userAnswers.getSubject()+"   "+userAnswers.getScore());
+            System.out.println(userAnswers.getSubject().getName()+"   "+userAnswers.getScore());
         }
 
         return new ApiResponse("DONE",true);
@@ -56,9 +48,7 @@ public class AnswerService {
     public ApiResponse clickedFinishButton() {
         Map<Subject, Integer> subjectIntegerMap = new LinkedHashMap<>();
         User currentUser = mostUsed.getCurrentUser();
-//        if (currentUser.getQuestionCounter() != 174) {
-//            return new ApiResponse("You have not finished test", false);
-//        }
+
         List<Answer> answerList = answerRepository.findByUser(currentUser);
         for (Answer answer : answerList) {
             if (answer.getAnswer() == 1) {
@@ -81,7 +71,8 @@ public class AnswerService {
             userAnswers.setScore(integer);
             userAnswersRepository.save(userAnswers);
         } );
-//        subjectIntegerMap.forEach((subject, integer) -> System.out.println(subject.getName() + ":   " + integer));
+
+
 
         return new ApiResponse("Your test is finished", true);
 
@@ -90,3 +81,5 @@ public class AnswerService {
 //
 //    }
 }
+
+

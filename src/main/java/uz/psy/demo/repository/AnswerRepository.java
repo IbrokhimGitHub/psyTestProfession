@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface AnswerRepository extends JpaRepository <Answer,Integer> {
     List<Answer> findByUserOrderByQuestion(User user);
     List<Answer> findByUser(User user);
-    Optional<Answer> findByQuestion(Question question);
+    Optional<Answer> findByQuestionAndUser(Question question, User user);
 }
